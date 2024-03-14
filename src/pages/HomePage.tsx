@@ -1,22 +1,25 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 const _URL = "http://localhost:7070/posts";
 
+
 type Post = {
-  id: string,
+  id: number,
   created: string,
   content: string,
 }
 
 export default function HomePage() {
 
+  const location = useLocation();
+  const navigate = useNavigate();
   const [listPosts, setListPosts] = useState<Post[]>([]);
 
-  useEffect(() => {
-    fetchPosts();
-  }, []);
+  // useEffect(() => {
+  //   fetchPosts();
+  // }, []);
 
-  const location = useLocation();
+  
   useEffect(() => {
     if (location.pathname === '/') {
       void fetchPosts()
@@ -30,18 +33,22 @@ export default function HomePage() {
   } 
 
 
+  
   const handlerClick = () => {
+    navigate('/new');
+  }
 
+  const handleClick = (post: Post) => {
+    navigate('/' + id);
   }
 
   return (
-    <div className="home-page">
-      <button onClick={handlerClick} className="home-page__btn">Создать пост</button>
+    <div className="home-page page">
       <ul className="home-page__list">
-        <h3 className="home-page__title">Список:</h3>
+      <button onClick={handlerClick} className="home-page__btn">Создать пост</button>
+        <h3 className="home-page__title">Список постов:</h3>
         {listPosts.map(item => (
-          <div className="post" key={item.id}>
-            <div className="post__created">{item.created}</div>
+          <div className="post" key={item.id} onClick={() => {handleClick(item)}}>
             <div className="post__content">{item.content}</div>
           </div>
         ))}
