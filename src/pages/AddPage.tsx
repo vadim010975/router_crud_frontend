@@ -23,9 +23,9 @@ const AddPage = () => {
     )
   }
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = event => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
-    fetchAdd(post as Post);
+    await fetchAdd(post as Post);
     navigate('/');
   }
 

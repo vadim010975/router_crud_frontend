@@ -1,3 +1,4 @@
+import localforage from 'localforage';
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 const _URL = "http://localhost:7070/posts";
@@ -10,19 +11,31 @@ type Post = {
 
 const ViewPage = () => {
 
-  // const [postId, setPostId] = useState()
+  const [post, setPost] = useState<Post>();
 
-  const { id: postId } = useParams()
+  const postId = Number(useParams().id);
+  if (Number.isNaN(postId)) {
+    return;
+  }
   useEffect(() => {
-    if (postId) {
-      fetchPost(postId)
-    }
+    getPostById(postId).then(res => {
+      if(res) {
+        setPost(res);
+      }
+    })
+
   }, [postId])
 
-  const fetchPost = async (postId: number) => {
-    const r = await fetch(_URL);
-    const response = await r.json();
-    setListPosts(response);
+  const getPostById = async(id: number) => {
+    const posts = await localforage.getItem<Post[]>('posts');
+    if (!posts) {
+      return;
+    }
+    const post = posts.find(item => item.id === id);
+    if (!post) {
+      return;
+    }
+    return post;
   }
 
   return (
@@ -32,4 +45,4 @@ const ViewPage = () => {
   );
 }
 
-export default ViewPage
+export default ViewPage;

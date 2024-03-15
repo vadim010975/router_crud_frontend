@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import localforage from 'localforage';
 const _URL = "http://localhost:7070/posts";
 
 
@@ -30,25 +31,28 @@ export default function HomePage() {
     const r = await fetch(_URL);
     const response = await r.json();
     setListPosts(response);
+    setLocalForage(response);
   } 
 
-
+  const setLocalForage = async (posts: Post[]) => {
+    await localforage.setItem('posts', posts);
+  }
   
-  const handlerClick = () => {
+  const handleAdd = () => {
     navigate('/new');
   }
 
-  const handleClick = (post: Post) => {
+  const handleViewing = (id: number) => {
     navigate('/' + id);
   }
 
   return (
     <div className="home-page page">
       <ul className="home-page__list">
-      <button onClick={handlerClick} className="home-page__btn">Создать пост</button>
+      <button onClick={handleAdd} className="home-page__btn">Создать пост</button>
         <h3 className="home-page__title">Список постов:</h3>
         {listPosts.map(item => (
-          <div className="post" key={item.id} onClick={() => {handleClick(item)}}>
+          <div className="post" key={item.id} onClick={() => {handleViewing(item.id)}}>
             <div className="post__content">{item.content}</div>
           </div>
         ))}
