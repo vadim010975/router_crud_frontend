@@ -1,15 +1,12 @@
 import './App.css';
-// import Menu from './components/Menu';
-// import DriftPage from './components/DriftPage';
-// import ForzaPage from './components/ForzaPage';
 import HomePage from './pages/HomePage';
 import AddPage from './pages/AddPage';
 import ViewPage from './pages/ViewPage';
-// import TimeAttackPage from './components/TimeAttackPage';
-import { createBrowserRouter, RouterProvider, Routes, Route } from "react-router-dom";
+import EditPage from './pages/EditPage';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./components/Layout";
 
-let router = createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: "/",
     Component: Layout,
@@ -25,6 +22,10 @@ let router = createBrowserRouter([
       {
         path: "/:id",
         Component: ViewPage,
+      },
+      {
+        path: "/edit/:id",
+        Component: EditPage,
       },
     ],
   },

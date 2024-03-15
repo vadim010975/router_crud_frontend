@@ -51,3 +51,24 @@
 .add-form__btn_submit {
   cursor: pointer;
 }
+
+.view-card {
+  width: 500px;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.view-card__content {
+  width: 100%;
+  min-height: 70px;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.view-card__btn_edit, .view-card__btn_remove {
+  margin-right: 10px;
+  cursor: pointer;
+}

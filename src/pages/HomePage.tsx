@@ -1,14 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import localforage from 'localforage';
-const _URL = "http://localhost:7070/posts";
-
-
-type Post = {
-  id: number,
-  created: string,
-  content: string,
-}
+import { fetchLoad, Post, setLocalForage } from "../components/service"
 
 export default function HomePage() {
 
@@ -16,27 +8,14 @@ export default function HomePage() {
   const navigate = useNavigate();
   const [listPosts, setListPosts] = useState<Post[]>([]);
 
-  // useEffect(() => {
-  //   fetchPosts();
-  // }, []);
-
-  
   useEffect(() => {
     if (location.pathname === '/') {
-      void fetchPosts()
+      fetchLoad().then(res => {
+        setListPosts(res);
+        setLocalForage(res);
+      });
     }
-  }, [location.pathname])
-
-  const fetchPosts = async() => {
-    const r = await fetch(_URL);
-    const response = await r.json();
-    setListPosts(response);
-    setLocalForage(response);
-  } 
-
-  const setLocalForage = async (posts: Post[]) => {
-    await localforage.setItem('posts', posts);
-  }
+  }, [location.pathname]);
   
   const handleAdd = () => {
     navigate('/new');
