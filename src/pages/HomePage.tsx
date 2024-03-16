@@ -22,6 +22,9 @@ export default function HomePage() {
   }
 
   const handleViewing = (id: number) => {
+    if (!id) {
+      return;
+    }
     navigate('/' + id);
   }
 

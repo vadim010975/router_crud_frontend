@@ -30,6 +30,9 @@ export const fetchDelete = async (id: number) => {
 }
 
 export const getPostById = async (id: number) => {
+  if (!id || Number.isNaN(id)) {
+    return;
+  }
   const posts = await localforage.getItem<Post[]>('posts') as Post[];
   if (!posts) {
     return;

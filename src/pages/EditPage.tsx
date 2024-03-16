@@ -4,19 +4,17 @@ import { fetchEdit, getPostById, Post } from "../components/service";
 
 const EditPage = () => {
   const navigate = useNavigate();
-  
+
   const postId = Number(useParams().id);
 
   const [post, setPost] = useState<Post>();
 
   useEffect(() => {
-    if (postId && !Number.isNaN(postId)) {
-      getPostById(postId).then(res => {
-        if (res) {
-          setPost(res);
-        }
-      });
-    }
+    getPostById(postId).then(res => {
+      if (res) {
+        setPost(res);
+      }
+    });
   }, [postId]);
 
   const handleUpdatePostField: React.FormEventHandler<HTMLInputElement | HTMLTextAreaElement> = (event) => {
@@ -45,7 +43,7 @@ const EditPage = () => {
     <div className="add-page page">
       <form onSubmit={handleSubmit} className="add-form">
         <h3 className="add-form_title">Редактировать публикацию</h3>
-        <textarea className="add-form__input" placeholder='напишите текст' value={post?.content ?? ''} name='content' onInput={handleUpdatePostField} />
+        <textarea className="add-form__input" placeholder='напишите текст' value={post?.content ?? ''} name='content' onInput={handleUpdatePostField} required/>
         <button onClick={handleCancel} type="button" className="add-form__btn_cancel">X</button>
         <button type="submit" className="add-form__btn_submit">Сохранить</button>
       </form>

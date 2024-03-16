@@ -9,13 +9,11 @@ const ViewPage = () => {
   const postId = Number(useParams().id);
 
   useEffect(() => {
-    if (postId && !Number.isNaN(postId)) {
-      getPostById(postId).then(res => {
-        if (res) {
-          setPost(res);
-        }
-      });
-    }
+    getPostById(postId).then(res => {
+      if (res) {
+        setPost(res);
+      }
+    });
   }, [postId])
 
   const handleRemove = () => {

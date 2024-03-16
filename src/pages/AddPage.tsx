@@ -30,7 +30,7 @@ const AddPage = () => {
     <div className="add-page page">
       <form onSubmit={handleSubmit} className="add-form">
         <h3 className="add-form_title">Карточка сосздания</h3>
-        <textarea className="add-form__input" placeholder='напишите текст' value={post?.content ?? ''} name='content' onInput={handleUpdatePostField} />
+        <textarea className="add-form__input" placeholder='напишите текст' value={post?.content ?? ''} name='content' onInput={handleUpdatePostField} required/>
         <button onClick={handleCancel} type="button" className="add-form__btn_cancel">X</button>
         <button type="submit" className="add-form__btn_submit">Опубликовать</button>
       </form>
